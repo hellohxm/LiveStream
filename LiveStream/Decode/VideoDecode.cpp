@@ -1,4 +1,4 @@
-#include "mediaplayer.h"
+#include "VideoDecode.h"
 #define flag_play       1
 #define flag_pause      2
 #define flag_break      3
@@ -8,12 +8,12 @@ AVFormatContext *pFormatCtxVideo;
 AVCodecContext *pCodecCtxVideo;
 static int audio_time;
 int event_flag=0;  //0=无任务，1=继续播放，2=暂停，3=关闭正在播放的视频，4=播放新视频
-MediaPlayer::MediaPlayer(QObject *parent) : QObject(parent)
+CVideoDecode::CVideoDecode(QObject *parent) : QObject(parent)
 {
 
 }
 
-void MediaPlayer::init()
+void CVideoDecode::init()
 {
     event_flag = flag_play;
     AVCodec *pCodecVideo;
@@ -52,7 +52,7 @@ void MediaPlayer::init()
     }
 }
 
-void MediaPlayer::play()
+void CVideoDecode::play()
 {
     AVFrame *pFrameVideo,*pFrameRGB;
     SwsContext *convertCtx;
@@ -130,12 +130,12 @@ void MediaPlayer::play()
     QThread::msleep(100);
 }
 
-void MediaPlayer::setFileName(QString name)
+void CVideoDecode::setFileName(QString name)
 {
     FileName = name;
 }
 
-PicData MediaPlayer::getPicData()
+PicData CVideoDecode::getPicData()
 {
     if(m_listPic.size()<=0)
     {
