@@ -1,4 +1,4 @@
-QT       += core gui opengl
+QT       += core gui opengl multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Decode/Decode.cpp \
+    Decode/PushStream.cpp \
     Decode/VideoDecode.cpp \
     OpenGL/VideoPlayWidget.cpp \
     Shader/Shader.cpp \
@@ -23,6 +25,8 @@ SOURCES += \
     MainWidget.cpp
 
 HEADERS += \
+    Decode/Decode.h \
+    Decode/PushStream.h \
     Decode/VideoDecode.h \
     MainWidget.h \
     OpenGL/VideoPlayWidget.h \
@@ -46,9 +50,9 @@ LIBS += -L../Lib/FFmpeg -lavutil
 LIBS += -L../Lib/FFmpeg -lpostproc
 LIBS += -L../Lib/FFmpeg -lswresample
 LIBS += -L../Lib/FFmpeg -lswscale
-
 win32:LIBS += -lopengl32 \
-                -lglu32
+                -lglu32 \
+                -user32
 
 CONFIG(debug, debug|release){
     DESTDIR =$$PWD/../Debug

@@ -6,10 +6,10 @@
 float vertices[] = {//Flip up or down, otherwise there is a problem, but no cause has been found......
                     //......................
     // positions         // texture coords 做了上下翻转，不然显示有问题，还没找到原因
-     0.5f,  1.0f, 0.0f,  1.0f, 0.0f, // top right
-     0.5f, -1.0f, 0.0f,  1.0f, 1.0f, // bottom right
-    -0.5f, -1.0f, 0.0f,  0.0f, 1.0f, // bottom left
-    -0.5f,  1.0f, 0.0f,  0.0f, 0.0f  // top left
+     1.0f,  1.0f, 0.0f,  1.0f, 0.0f, // top right
+     1.0f, -1.0f, 0.0f,  1.0f, 1.0f, // bottom right
+    -1.0f, -1.0f, 0.0f,  0.0f, 1.0f, // bottom left
+    -1.0f,  1.0f, 0.0f,  0.0f, 0.0f  // top left
     };
 
 const GLfloat vertexVertices[] = {
@@ -128,6 +128,7 @@ void CVideoPlayWidget::paintEvent(QPaintEvent *e)
 }
 void CVideoPlayWidget::setPicData(const PicData& struPicData)
 {
+    if(struPicData.iWidth<=0 || struPicData.iHeight<=0) return;
     m_PicData=struPicData;
     update();
 }

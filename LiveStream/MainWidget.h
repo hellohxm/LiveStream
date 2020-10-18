@@ -2,14 +2,10 @@
 #define CMAINWIDGET_H
 
 #include <QWidget>
-
-extern "C"
-{
-#include "libavcodec/avcodec.h"
-#include "libavformat/avformat.h"
-#include "libswscale/swscale.h"
-#include "libswresample/swresample.h"
-}
+#include "Decode/VideoDecode.h"
+#include <QThread>
+#include <QTimer>
+#include "Decode/PushStream.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class CMainWidget; }
 QT_END_NAMESPACE
@@ -22,7 +18,17 @@ public:
     CMainWidget(QWidget *parent = nullptr);
     ~CMainWidget();
 
+signals:
+    void signalPlayVideo(const QString&);
+private slots:
+    void onTimerSetData();
+    void onPlayVideo();
 private:
     Ui::CMainWidget *ui;
+    CVideoDecode* m_pDecode{nullptr};
+    QThread* m_pThreadDecode{nullptr};
+    QThread* m_pThreadPushStream{nullptr};
+    QTimer m_timer;
+    CPushStream* m_pPushStream{nullptr};
 };
 #endif // CMAINWIDGET_H
